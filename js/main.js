@@ -130,7 +130,8 @@ var soundEngine = {
 }
 
 var view = {
-  showChordButtons: function(soundSequenceType) {
+  showSoundSequenceButtons: function(soundSequenceType) {
+
     var soundSequenceDiv = document.getElementById('sound-sequences');
     soundSequenceType.forEach(function(value, position) {
       var playSoundSequenceButton = this.createButton(value[0]);
@@ -146,7 +147,10 @@ var view = {
     return button;
   },
   setupEventListeners: function(soundSequenceType) {
-
+//    if (soundSequenceType === scales) {
+//      console.log('no harmonic play');
+//      $('#harmonic').hide();
+//    }
     var harmony = 'ascending';
     $('.harmony-btn').on('change', function() {
        harmony = this.id;
@@ -164,4 +168,4 @@ var view = {
   }
 }
 
-view.showChordButtons(scales);
+view.showSoundSequenceButtons(scales);
