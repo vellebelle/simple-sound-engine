@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   width: 100vw; }
   #sound-sequences button {
+    flex-grow: 1;
     width: 100px;
     min-width: 200px;
     padding: 20px;

@@ -100,7 +100,6 @@ var soundEngine = {
           window.setTimeout(function(){
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
-              console.log('on');
               view.setupEventListeners(soundSequenceType);
             }
             piano[startingNote + soundSequence[i]].play();
@@ -147,10 +146,19 @@ var view = {
     return button;
   },
   setupEventListeners: function(soundSequenceType) {
-//    if (soundSequenceType === scales) {
-//      console.log('no harmonic play');
-//      $('#harmonic').hide();
-//    }
+
+    // $('.sound-sequence-type-btn').on('change', function() {
+    //    var soundSequenceButtonId = (this.id);
+    //    console.log(soundSequenceButtonId);
+    //    this.showSoundSequenceButtons(soundSequenceButtonId);
+    // });
+
+    // Hide the harmonic option if soundSequenceType is equal to intervals
+   if (soundSequenceType === scales) {
+     console.log('no harmonic play');
+     $('#harmonic').hide();
+     $('label[for="harmonic"]').hide();
+   }
     var harmony = 'ascending';
     $('.harmony-btn').on('change', function() {
        harmony = this.id;
@@ -168,4 +176,4 @@ var view = {
   }
 }
 
-view.showSoundSequenceButtons(scales);
+view.showSoundSequenceButtons(chords);
