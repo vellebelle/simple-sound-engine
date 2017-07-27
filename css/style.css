@@ -1,13 +1,13 @@
-#chords {
+#sound-sequences {
   display: flex;
   flex-wrap: wrap;
   width: 100vw; }
-  #chords button {
+  #sound-sequences button {
     width: 100px;
+    min-width: 200px;
     padding: 20px;
     margin: 15px;
     border-radius: 10px;
-    box-shadow: 0;
     border: 3px solid red;
     background: orange;
     color: white;

@@ -49,7 +49,6 @@ const intervals = [
   ['Major 14th',       [0, 23]],
   ['Two Octaves',      [0, 24]]
 ];
-
 const scales = [
   ['Major Pentatonic',    [0, 2, 4, 7, 9, 12]],
   ['Minor Pentatonic',    [0, 3, 5, 7, 10, 12]],
@@ -96,7 +95,7 @@ var soundEngine = {
       }
       if (harmony === 'ascending') {
         // remove eventlistener from buttons just before first note is played
-        $('#chords').off();
+        $('#sound-sequences').off();
         (function(i){
           window.setTimeout(function(){
             // When last note in soundSequence is reached, re-add eventlistener to buttons
@@ -112,7 +111,7 @@ var soundEngine = {
     if (harmony === "descending") {
       var soundSequenceReversed = soundSequence.slice().reverse();
       // remove eventlistener from buttons just before first note is played
-      $('#chords').off();
+      $('#sound-sequences').off();
       for (var i = 0; i < soundSequenceLength; i++) {
 
         (function(i){
@@ -132,11 +131,11 @@ var soundEngine = {
 
 var view = {
   showChordButtons: function(soundSequenceType) {
-    var chordsDiv = document.getElementById('chords');
+    var soundSequenceDiv = document.getElementById('sound-sequences');
     soundSequenceType.forEach(function(value, position) {
-      var playChordButton = this.createButton(value[0]);
-      playChordButton.id = position;
-      chordsDiv.appendChild(playChordButton);
+      var playSoundSequenceButton = this.createButton(value[0]);
+      playSoundSequenceButton.id = position;
+      soundSequenceDiv.appendChild(playSoundSequenceButton);
     }, this);
     this.setupEventListeners(soundSequenceType);
   },
@@ -156,7 +155,7 @@ var view = {
     $('#time-interval-between-notes').on('change', function() {
       timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     });
-    $('#chords').on('click', function(event) {
+    $('#sound-sequences').on('click', function(event) {
       var elementClicked = event.target;
       if (elementClicked.className === 'play-chord-btn') {
           soundEngine.playSoundSequence(soundSequenceType, soundSequenceType[elementClicked.id][1], 24, harmony, timeIntervalBetweenNotes);
@@ -165,4 +164,4 @@ var view = {
   }
 }
 
-view.showChordButtons(intervals);
+view.showChordButtons(scales);
