@@ -22,10 +22,33 @@ const chords = [
   ['7(#9)', [0, 4, 7, 10, 15]],
   ['m9', [0, 3, 7, 10, 14]]
 ];
-
-
-
-// TODO: Define tones (c, c#, d, d# ets - sharps and flats.. Start from tone 0 = c, 1 = c# etc...)
+const intervals = [
+  ['Unison',           [0, 0]],
+  ['Minor 2nd',        [0, 1]],
+  ['Major 2nd',        [0, 2]],
+  ['Minor 3rd',        [0, 3]],
+  ['Major 3rd',        [0, 4]],
+  ['Perfect 4th',      [0, 5]],
+  ['Diminished 5th',   [0, 6]],
+  ['Perfect 5h',       [0, 7]],
+  ['Minor 6th',        [0, 8]],
+  ['Major 6th',        [0, 9]],
+  ['Minor 7th',        [0, 10]],
+  ['Major 7th',        [0, 11]],
+  ['Octave',           [0,12]],
+  ['Minor 9th',        [0, 13]],
+  ['Major 9th',        [0, 14]],
+  ['Minor 10th',       [0, 15]],
+  ['Major 10th',       [0, 16]],
+  ['Perfect 11th',     [0, 17]],
+  ['Diminished 12th',  [0, 18]],
+  ['Perfect 12th',     [0, 19]],
+  ['Minor 13th',       [0, 20]],
+  ['Major 13th',       [0, 21]],
+  ['Minor 14th',       [0, 22]],
+  ['Major 14th',       [0, 23]],
+  ['Two Octaves',      [0, 24]]
+];
 
 // Load sound files and put them into piano array
 var piano = [];
@@ -34,28 +57,24 @@ for (var i = 0; i < 60; i++) {
   piano[i] = new Audio(url);
 }
 
-// function stopAllSound() {
-//     for (var i = 0; i < piano.length; i++) {
-//       //piano[i].currentTime = 0;
-//     }
-// }
-
 var soundEngine = {
-  playSoundSequence: function(soundSequence, startingNote, harmony, timeInterval) {
-
-
-    for (var i = 0; i < soundSequence.length; i++) {
+  playSoundSequence: function(soundSequenceType, soundSequence, startingNote, harmony, timeInterval) {
+    var soundSequenceLength = soundSequence.length;
+    for (var i = 0; i < soundSequenceLength; i++) {
 
       if (harmony === 'harmonic') {
-        // stopAllSound();
         piano[startingNote + soundSequence[i]].play();
       }
       if (harmony === 'ascending') {
-        //stopAllSound();
-        //$('button').off();
+        // remove eventlistener from buttons just before first note is played
+        $('#chords').off();
         (function(i){
           window.setTimeout(function(){
-            //console.log(piano[startingNote + soundSequence[i]]);
+            // When last note in soundSequence is reached, re-add eventlistener to buttons
+            if (i === soundSequenceLength - 1) {
+              console.log('on');
+              view.setupEventListeners(soundSequenceType);
+            }
             piano[startingNote + soundSequence[i]].play();
           }, i * timeInterval);
         }(i));
@@ -63,9 +82,17 @@ var soundEngine = {
     }
     if (harmony === "descending") {
       var soundSequenceReversed = soundSequence.slice().reverse();
-      for (var i = 0; i < soundSequenceReversed.length; i++) {
+      // remove eventlistener from buttons just before first note is played
+      $('#chords').off();
+      for (var i = 0; i < soundSequenceLength; i++) {
+
         (function(i){
           window.setTimeout(function(){
+            // When last note in soundSequence is reached, re-add eventlistener to buttons
+            if (i === soundSequenceLength - 1) {
+              view.setupEventListeners(soundSequenceType);
+              console.log('on');
+            }
             piano[startingNote + soundSequenceReversed[i]].play();
           }, i * timeInterval);
         }(i));
@@ -75,14 +102,14 @@ var soundEngine = {
 }
 
 var view = {
-  showChordButtons: function() {
+  showChordButtons: function(soundSequenceType) {
     var chordsDiv = document.getElementById('chords');
-    chords.forEach(function(value, position) {
+    soundSequenceType.forEach(function(value, position) {
       var playChordButton = this.createButton(value[0]);
       playChordButton.id = position;
       chordsDiv.appendChild(playChordButton);
     }, this);
-    this.setupEventListeners(chordsDiv);
+    this.setupEventListeners(soundSequenceType);
   },
   createButton: function(textContent) {
     var button = document.createElement('button');
@@ -90,31 +117,23 @@ var view = {
     button.className = 'play-chord-btn';
     return button;
   },
-  setupEventListeners: function(chordsDiv) {
+  setupEventListeners: function(soundSequenceType) {
+
     var harmony = 'ascending';
     $('.harmony-btn').on('change', function() {
        harmony = this.id;
     });
-    var timeIntervalBetweenNotes = 500;
+    var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     $('#time-interval-between-notes').on('change', function() {
       timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     });
-    chordsDiv.addEventListener('click', function(event) {
-      // MAke buttons inactive while sound is playing
-
+    $('#chords').on('click', function(event) {
       var elementClicked = event.target;
       if (elementClicked.className === 'play-chord-btn') {
-          // remove eventlistener after button is clicked
-          //$('.play-chord-btn').off();
-          chordsDiv.removeEventListener('click', false);
-          soundEngine.playSoundSequence(chords[elementClicked.id][1], 24, harmony, timeIntervalBetweenNotes);
+          soundEngine.playSoundSequence(soundSequenceType, soundSequenceType[elementClicked.id][1], 24, harmony, timeIntervalBetweenNotes);
       }
     });
   }
 }
 
-
-
-
-
-view.showChordButtons();
+view.showChordButtons(intervals);
