@@ -11,33 +11,35 @@
 </head>
 
 <body>
-  <div id="sound-sequence-type-select">
-    <label for="intervals">Intervals</label>
-    <input type="radio" id="intervals" class="sound-sequence-type-btn" name="sound-sequence-type" checked>
-    <label for="chords">Chords</label>
-    <input type="radio" id="chords" class="sound-sequence-type-btn" name="sound-sequence-type">
-    <label for="scales">Scales</label>
-    <input type="radio" id="scales" class="sound-sequence-type-btn" name="sound-sequence-type">
+  <div id="controls">
+    <div id="sound-sequence-type-select">
+      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(chords);">Chords</button>
+      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(intervals);">Intervals</button>
+      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(scales);">Scales</button>
+    </div>
+
+    <div id="harmony-select">
+      <label for="ascending">Ascending</label>
+      <input type="radio" id="ascending" class="harmony-btn" name="harmony-select" checked>
+      <label for="descending">Descending</label>
+      <input type="radio" id="descending" class="harmony-btn" name="harmony-select">
+      <label for="harmonic">Harmonic</label>
+      <input type="radio" id="harmonic" class="harmony-btn" name="harmony-select">
+    </div>
+
+
+    <form>
+    Miliseonds between notes:
+    <input type="number" id="time-interval-between-notes" min="100" max="1000" step="100" value="500">
+    </form>
   </div>
-  <br />
-  <div id="harmony-select">
-    <label for="ascending">Ascending</label>
-    <input type="radio" id="ascending" class="harmony-btn" name="harmony-select" checked>
-    <label for="descending">Descending</label>
-    <input type="radio" id="descending" class="harmony-btn" name="harmony-select">
-    <label for="harmonic">Harmonic</label>
-    <input type="radio" id="harmonic" class="harmony-btn" name="harmony-select">
-  </div>
-  <br />
-  <form>
-  Miliseonds between notes:
-  <input type="number" id="time-interval-between-notes" min="100" max="1000" step="100" value="500">
-</form>
+
   <div id="sound-sequences">
   </div>
 
 
   <script src='js/jquery-3.2.1.min.js'></script>
+  <script src="js/tonal.min.js"></script>
   <script src="js/main.js"></script>
 
 </body>

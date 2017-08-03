@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+$button-color: #519bed;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#controls {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin-left: 20px;
+  button {
+    width: 100px;
+    margin-right: 20px;
+  }
+  form {
+    margin-left: 30px;
+  }
+}
+
 #sound-sequences {
   display: flex;
   flex-wrap: wrap;
@@ -10,9 +31,13 @@
       padding: 20px;
       margin: 15px;
       border-radius: 10px;
-      border: 3px solid red;
-      background: orange;
+      border: 3px solid darken($button-color, 5%);
+      background: $button-color;
       color: white;
       font-size: 1em;
+      &:hover {
+        background: lighten($button-color, 5%);
+        cursor: pointer;
+      }
     }
 }

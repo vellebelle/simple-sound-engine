@@ -78,17 +78,29 @@ const scales = [
   ['Altered (b7)',         [0, 1, 3, 4, 6, 8, 9, 12]]
 ];
 
+// constants containing the note name sequence for sharps and flats
+const notesSharp = ["C", "C", "D", "D", "E", "F", "F", "G", "G", "A", "A", "B"];
+const notesFlat = ["C", "D", "D", "E", "E", "F", "G", "G", "A", "A", "B", "B"];
+
+// constant where each value corresponds to the sharp or flat in the note sequences.. 0 = no sharp/flat, 1 = sharp/flat
+const signs = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
+
 // Load sound files and put them into piano array
 var piano = [];
 for (var i = 0; i < 60; i++) {
-  var url = '../sounds/piano' + i + '.mp3';
+  var url = 'sounds/Piano' + i + '.mp3';
   piano[i] = new Audio(url);
 }
 
 var soundEngine = {
-  playSoundSequence: function(soundSequenceType, soundSequence, startingNote, harmony, timeInterval) {
+  playSoundSequence: function(soundSequenceArray, soundSequence, startingNote, harmony, timeInterval) {
     var soundSequenceLength = soundSequence.length;
+    var noteNameString = '';
     for (var i = 0; i < soundSequenceLength; i++) {
+
+      // get name of notes
+      var noteIndex = startingNote + soundSequence[i];
+      noteNameString += utils.generateNoteString(noteIndex, true) + ' ';
 
       if (harmony === 'harmonic') {
         piano[startingNote + soundSequence[i]].play();
@@ -100,7 +112,7 @@ var soundEngine = {
           window.setTimeout(function(){
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
-              view.setupEventListeners(soundSequenceType);
+              view.setupEventListeners(soundSequenceArray);
             }
             piano[startingNote + soundSequence[i]].play();
           }, i * timeInterval);
@@ -108,6 +120,7 @@ var soundEngine = {
       }
     }
     if (harmony === "descending") {
+      // Make a copy of the soundSequence array and reverse it
       var soundSequenceReversed = soundSequence.slice().reverse();
       // remove eventlistener from buttons just before first note is played
       $('#sound-sequences').off();
@@ -117,48 +130,70 @@ var soundEngine = {
           window.setTimeout(function(){
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
-              view.setupEventListeners(soundSequenceType);
-              console.log('on');
+              view.setupEventListeners(soundSequenceArray);
             }
             piano[startingNote + soundSequenceReversed[i]].play();
           }, i * timeInterval);
         }(i));
       }
     }
+    console.log(noteNameString);
+    console.log(Tonal.scale.detect(noteNameString));
+  }
+}
+
+var utils = {
+  createRandomStartingNote: function(soundSequence) {
+    var soundSequenceRange = soundSequence[soundSequence.length - 1];
+    var maxRootNote = (piano.length - 1 ) - soundSequenceRange;
+    return Math.floor(Math.random() * (maxRootNote  + 1));
+  },
+  generateNoteString: function(noteIndex, sharpOrFlat) {
+  //sharpOrFlat         : false=sharps, true=flats
+    noteIndex = ((noteIndex % 12) + 12) % 12;
+    var noteString;
+
+    if (sharpOrFlat) {
+      noteString = notesFlat[noteIndex];
+      if (signs[noteIndex] === 1) {
+        noteString += "b";
+      }
+    } else {
+      noteString = notesSharp[noteIndex];
+      if (signs[noteIndex] === 1) {
+        noteString += "#";
+      }
+    }
+    return noteString;
   }
 }
 
 var view = {
-  showSoundSequenceButtons: function(soundSequenceType) {
+  showSoundSequenceButtons: function(soundSequenceArray) {
     $('#sound-sequences').empty();
     var soundSequenceDiv = document.getElementById('sound-sequences');
-    soundSequenceType.forEach(function(value, position) {
+    soundSequenceArray.forEach(function(value, position) {
       var playSoundSequenceButton = this.createButton(value[0]);
       playSoundSequenceButton.id = position;
       soundSequenceDiv.appendChild(playSoundSequenceButton);
     }, this);
-    this.setupEventListeners(soundSequenceType);
+    this.setupEventListeners(soundSequenceArray);
   },
   createButton: function(textContent) {
     var button = document.createElement('button');
     button.textContent = textContent;
-    button.className = 'play-chord-btn';
+    button.className = 'play-chord-btn'; // Change name
     return button;
   },
-  setupEventListeners: function(soundSequenceType) {
+  setupEventListeners: function(soundSequenceArray) {
     // remove event listeners from all buttons
     $('#sound-sequences').off();
+    // Set harmony to ascending as standard and check the ascending checkbox
+    $('#ascending').prop('checked', true);
+    var harmony = 'ascending';
 
-    // $('.sound-sequence-type-btn').on('change', function() {
-    //    var soundSequenceButtonId = (this.id);
-    //    if (soundSequenceButtonId === 'scales') {
-    //      soundSequenceType = scales;
-    //      console.log('I am scales');
-    //    }
-    // });
-
-    // Hide the harmonic option if soundSequenceType is equal to intervals
-   if (soundSequenceType === scales) {
+    // Hide the harmonic option if soundSequenceArray is equal to intervals
+   if (soundSequenceArray === scales) {
      //console.log('no harmonic play');
      $('#harmonic').hide();
      $('label[for="harmonic"]').hide();
@@ -167,7 +202,6 @@ var view = {
      $('label[for="harmonic"]').show();
    }
 
-    var harmony = 'ascending';
     $('.harmony-btn').on('change', function() {
        harmony = this.id;
     });
@@ -177,11 +211,13 @@ var view = {
     });
     $('#sound-sequences').on('click', function(event) {
       var elementClicked = event.target;
+      var soundSequence = soundSequenceArray[elementClicked.id][1];
+      var randomStartingNote = utils.createRandomStartingNote(soundSequence);
       if (elementClicked.className === 'play-chord-btn') {
-          soundEngine.playSoundSequence(soundSequenceType, soundSequenceType[elementClicked.id][1], 24, harmony, timeIntervalBetweenNotes);
+          soundEngine.playSoundSequence(soundSequenceArray, soundSequence, randomStartingNote, harmony, timeIntervalBetweenNotes);
       }
     });
   }
 }
 
-view.showSoundSequenceButtons(intervals);
+view.showSoundSequenceButtons(chords);

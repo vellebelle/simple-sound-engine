@@ -1,3 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+body {
+  font-family: 'Open Sans', sans-serif; }
+
+#controls {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin-left: 20px; }
+  #controls button {
+    width: 100px;
+    margin-right: 20px; }
+  #controls form {
+    margin-left: 30px; }
+
 #sound-sequences {
   display: flex;
   flex-wrap: wrap;
@@ -9,7 +24,10 @@
     padding: 20px;
     margin: 15px;
     border-radius: 10px;
-    border: 3px solid red;
-    background: orange;
+    border: 3px solid #3a8eeb;
+    background: #519bed;
     color: white;
     font-size: 1em; }
+    #sound-sequences button:hover {
+      background: #68a8ef;
+      cursor: pointer; }

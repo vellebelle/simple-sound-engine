@@ -31,6 +31,15 @@
 		"oAP": "\/index.html",
 		"oF": 0
 		},
+	"\/js\/inversions.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/js\/inversions-min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
 	"\/js\/jquery-3.2.1.min.js": {
 		"ft": 64,
 		"mi": 1,
