@@ -13,6 +13,9 @@ body {
   #controls form {
     margin-left: 30px; }
 
+#sound-sequence-type-select {
+  margin-right: 40px; }
+
 #sound-sequences {
   display: flex;
   flex-wrap: wrap;

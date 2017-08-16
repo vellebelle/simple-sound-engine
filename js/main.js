@@ -137,7 +137,7 @@ var soundEngine = {
         }(i));
       }
     }
-    //console.log(noteNameString);
+    console.log(noteNameString);
     //console.log(Tonal.scale.detect(noteNameString));
   }
 }
@@ -213,6 +213,19 @@ var view = {
     $('.harmony-btn').on('change', function() {
       harmony = this.id;
     });
+    $('.sound-sequence-type-btn').off();
+    $('.sound-sequence-type-btn').on('change', function() {
+      debugger;
+      if (this.id === 'chords') {
+        view.showSoundSequenceButtons(chords);
+      }
+      if (this.id === 'intervals') {
+        view.showSoundSequenceButtons(intervals);
+      }
+      if (this.id === 'scales') {
+        view.showSoundSequenceButtons(scales);
+      }
+    });
     // Hide the harmonic option if soundSequenceArray is equal to scales
    if (soundSequenceArray === scales) {
      $('#harmonic').hide();
@@ -249,3 +262,6 @@ var view = {
 }
 
 view.showSoundSequenceButtons(chords);
+
+
+//soundEngine.playSoundSequence(chords, utils.getChordInversion([0, 4, 7, 11], 3), utils.createRandomStartingNote(utils.getChordInversion([0, 4, 7, 11], 3)), 'ascending', 600);

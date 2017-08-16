@@ -4,18 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
 
-
       <link rel="stylesheet" href="css/style.css">
-
 
 </head>
 
 <body>
   <div id="controls">
     <div id="sound-sequence-type-select">
-      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(chords);">Chords</button>
-      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(intervals);">Intervals</button>
-      <button class="sound-sequence-type-btn" onClick="view.showSoundSequenceButtons(scales);">Scales</button>
+      <label for="chords">Chords</label>
+      <input type="radio" id="chords" class="sound-sequence-type-btn" name="sound-sequence-type-select" checked>
+      <label for="intervals">Intervals</label>
+      <input type="radio" id="intervals" class="sound-sequence-type-btn" name="sound-sequence-type-select">
+      <label for="scales">Scales</label>
+      <input type="radio" id="scales" class="sound-sequence-type-btn" name="sound-sequence-type-select">
+    </div>
+
+    <div id="chord-inversion-select">
+      test
     </div>
 
     <div id="harmony-select">
