@@ -205,7 +205,7 @@ var view = {
     return button;
   },
   setupEventListeners: function(soundSequenceArray) {
-    // remove event listeners from all buttons
+    // remove event listeners from all sound sequence buttons
     $('#sound-sequences').off();
     // Set harmony to the value of the checked radiobutton
     var harmony = $('input[type=radio][name=harmony-select]:checked').attr('id');
@@ -213,9 +213,11 @@ var view = {
     $('.harmony-btn').on('change', function() {
       harmony = this.id;
     });
+
+    // Remove eventlisteners from sound sequence type selectors
     $('.sound-sequence-type-btn').off();
+
     $('.sound-sequence-type-btn').on('change', function() {
-      debugger;
       if (this.id === 'chords') {
         view.showSoundSequenceButtons(chords);
       }
@@ -225,6 +227,12 @@ var view = {
       if (this.id === 'scales') {
         view.showSoundSequenceButtons(scales);
       }
+    });
+
+    $('.chord-inversion-select').on('change', function() {
+      // TODO: CREATE A SOUNDSEQUENCE BASED ON THE INVERSION (chordInversion)
+      var chordInversion = this.id;
+      console.log(this.id);
     });
     // Hide the harmonic option if soundSequenceArray is equal to scales
    if (soundSequenceArray === scales) {
@@ -236,7 +244,6 @@ var view = {
      } else if (harmony === 'descending') {
        $('#descending').prop('checked', true);
      } else {
-       console.log('I am harmonic');
        harmony = 'ascending';
        $('#ascending').prop('checked', true);
      }
@@ -244,6 +251,11 @@ var view = {
    } else {
      $('#harmonic').show();
      $('label[for="harmonic"]').show();
+   }
+   // Show and hide the radio buttons for inversions
+   $('#chord-inversion-select').hide();
+   if (soundSequenceArray === chords) {
+     $('#chord-inversion-select').show();
    }
 
     var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
