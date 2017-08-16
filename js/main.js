@@ -137,8 +137,8 @@ var soundEngine = {
         }(i));
       }
     }
-    console.log(noteNameString);
-    console.log(Tonal.scale.detect(noteNameString));
+    //console.log(noteNameString);
+    //console.log(Tonal.scale.detect(noteNameString));
   }
 }
 
@@ -165,6 +165,25 @@ var utils = {
       }
     }
     return noteString;
+  },
+  getChordInversion: function(soundSequence, inversion) {
+    var maximumInversions = soundSequence.length - inversion;
+    // If no inversion requested, return original soundSequence
+    if (inversion === 0) {
+      return soundSequence;
+    }
+    // If inversion does not exceed soundSequence limit, return new inversion
+    if (inversion > 0 && maximumInversions >= 1){
+      for (var i = 0; i < inversion; i++) {
+        var rootNotePlusOctave = soundSequence[0] + 12;
+        soundSequence.push(rootNotePlusOctave);
+        soundSequence.shift();
+      }
+      return soundSequence;
+    } else {
+      // throw error
+      throw 'Error: inversion exceeds soundSequence limit.';
+    }
   }
 }
 
@@ -188,23 +207,32 @@ var view = {
   setupEventListeners: function(soundSequenceArray) {
     // remove event listeners from all buttons
     $('#sound-sequences').off();
-    // Set harmony to ascending as standard and check the ascending checkbox
-    $('#ascending').prop('checked', true);
-    var harmony = 'ascending';
-
-    // Hide the harmonic option if soundSequenceArray is equal to intervals
+    // Set harmony to the value of the checked radiobutton
+    var harmony = $('input[type=radio][name=harmony-select]:checked').attr('id');
+    console.log(harmony);
+    $('.harmony-btn').on('change', function() {
+      harmony = this.id;
+    });
+    // Hide the harmonic option if soundSequenceArray is equal to scales
    if (soundSequenceArray === scales) {
-     //console.log('no harmonic play');
      $('#harmonic').hide();
      $('label[for="harmonic"]').hide();
+     // Set harmony radiobutton to ascending or descending (no harmonic option)
+     if (harmony === 'ascending') {
+       $('#ascending').prop('checked', true);
+     } else if (harmony === 'descending') {
+       $('#descending').prop('checked', true);
+     } else {
+       console.log('I am harmonic');
+       harmony = 'ascending';
+       $('#ascending').prop('checked', true);
+     }
+
    } else {
      $('#harmonic').show();
      $('label[for="harmonic"]').show();
    }
 
-    $('.harmony-btn').on('change', function() {
-       harmony = this.id;
-    });
     var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     $('#time-interval-between-notes').on('change', function() {
       timeIntervalBetweenNotes = $('#time-interval-between-notes').val();

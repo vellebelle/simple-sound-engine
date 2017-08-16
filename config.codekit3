@@ -75,6 +75,15 @@
 		"oO": 0,
 		"oS": 1
 		},
+	"\/js\/tonal.min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/tonal.min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"\/README.md": {
 		"cS": 0,
 		"eF": 1,
