@@ -209,7 +209,7 @@ var view = {
     $('#sound-sequences').off();
     // Set harmony to the value of the checked radiobutton
     var harmony = $('input[type=radio][name=harmony-select]:checked').attr('id');
-    console.log(harmony);
+    // console.log(harmony);
     $('.harmony-btn').on('change', function() {
       harmony = this.id;
     });
@@ -229,9 +229,9 @@ var view = {
       }
     });
 
+    var chordInversion = $('input[type=radio][name=chord-inversion-select]:checked').attr('id');
     $('.chord-inversion-select').on('change', function() {
-      // TODO: CREATE A SOUNDSEQUENCE BASED ON THE INVERSION (chordInversion)
-      var chordInversion = this.id;
+      chordInversion = this.id;
       console.log(this.id);
     });
     // Hide the harmonic option if soundSequenceArray is equal to scales
@@ -253,9 +253,9 @@ var view = {
      $('label[for="harmonic"]').show();
    }
    // Show and hide the radio buttons for inversions
-   $('#chord-inversion-select').hide();
+   $('#chord-inversion-selectors').hide();
    if (soundSequenceArray === chords) {
-     $('#chord-inversion-select').show();
+     $('#chord-inversion-selectors').show();
    }
 
     var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
@@ -263,11 +263,14 @@ var view = {
       timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     });
     $('#sound-sequences').on('click', function(event) {
+    //  debugger;
       var elementClicked = event.target;
-      var soundSequence = soundSequenceArray[elementClicked.id][1];
+      var soundSequence = soundSequenceArray[elementClicked.id][1].slice();
+
       var randomStartingNote = utils.createRandomStartingNote(soundSequence);
       if (elementClicked.className === 'play-chord-btn') {
-          soundEngine.playSoundSequence(soundSequenceArray, soundSequence, randomStartingNote, harmony, timeIntervalBetweenNotes);
+          //soundEngine.playSoundSequence(soundSequenceArray, soundSequence, 24, harmony, timeIntervalBetweenNotes);
+        soundEngine.playSoundSequence(soundSequenceArray, utils.getChordInversion(soundSequence, parseInt(chordInversion)), 24, harmony, timeIntervalBetweenNotes);
       }
     });
   }
