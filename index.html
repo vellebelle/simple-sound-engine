@@ -10,46 +10,57 @@
 
 <body>
   <div id="controls">
-    <div id="sound-sequence-type-select">
-      <label for="chords">Chords</label>
+    <div id="sound-sequence-type-select" class="settings-section">
       <input type="radio" id="chords" class="sound-sequence-type-btn" name="sound-sequence-type-select" checked>
-      <label for="intervals">Intervals</label>
+      <label for="chords">Chords</label>
+
       <input type="radio" id="intervals" class="sound-sequence-type-btn" name="sound-sequence-type-select">
+      <label for="intervals">Intervals</label>
+
+        <input type="radio" id="scales" class="sound-sequence-type-btn" name="sound-sequence-type-select">
       <label for="scales">Scales</label>
-      <input type="radio" id="scales" class="sound-sequence-type-btn" name="sound-sequence-type-select">
     </div>
 
-    <div id="chord-inversion-selectors">
-      <label for="0">Root</label>
+    <div id="chord-inversion-selectors" class="settings-section">
+
       <input type="radio" id="0" class="chord-inversion-select" name="chord-inversion-select" checked>
-      <label for="1">1. Inv.</label>
+      <label for="0">Root</label>
+
       <input type="radio" id="1" class="chord-inversion-select" name="chord-inversion-select">
-      <label for="2">2. Inv.</label>
+      <label for="1">1. Inv.</label>
+
       <input type="radio" id="2" class="chord-inversion-select" name="chord-inversion-select">
-      <label for="3">3. Inv.</label>
+      <label for="2">2. Inv.</label>
+
       <input type="radio" id="3" class="chord-inversion-select" name="chord-inversion-select">
+      <label for="3">3. Inv.</label>
     </div>
 
-    <div id="harmony-select">
-      <label for="ascending">Ascending</label>
+    <div id="harmony-select" class="settings-section">
+
       <input type="radio" id="ascending" class="harmony-btn" name="harmony-select" checked>
-      <label for="descending">Descending</label>
+      <label for="ascending">Ascending</label>
+
       <input type="radio" id="descending" class="harmony-btn" name="harmony-select">
-      <label for="harmonic">Harmonic</label>
+      <label for="descending">Descending</label>
+
       <input type="radio" id="harmonic" class="harmony-btn" name="harmony-select">
+      <label for="harmonic">Harmonic</label>
     </div>
 
-    <div id="root-note-select">
-        <label for="fixed-root-note">Fixed root</label>
-        <input type="radio" id="fixed-root-note" class="root-note" name="root-note-select" checked>
-        <label for="random-root-note">Random root</label>
-        <input type="radio" id="random-root-note" class="root-note" name="root-note-select">
+    <div id="root-note-select" class="settings-section">
+
+      <input type="radio" id="fixed-root-note" class="root-note" name="root-note-select" checked>
+      <label for="fixed-root-note">Fixed root</label>
+
+      <input type="radio" id="random-root-note" class="root-note" name="root-note-select">
+      <label for="random-root-note">Random root</label>
 
     </div>
 
-    <form>
-    Miliseonds between notes:
-    <input type="number" id="time-interval-between-notes" min="100" max="1000" step="100" value="500">
+    <form class="settings-section">
+      <!-- <h4>Time interval between notes:</h4> -->
+      <input type="number" id="time-interval-between-notes" min="100" max="1000" step="100" value="500">
     </form>
   </div>
 
@@ -58,7 +69,7 @@
 
 
   <script src='js/jquery-3.2.1.min.js'></script>
-  <script src="js/tonal.min.js"></script>
+  <!-- <script src="js/tonal.min.js"></script> -->
   <script src="js/main.js"></script>
 
 </body>

@@ -96,6 +96,8 @@ var soundEngine = {
   playSoundSequence: function(soundSequenceArray, soundSequence, startingNote, harmony, timeInterval) {
     var soundSequenceLength = soundSequence.length;
     var noteNameString = '';
+    // Check if soundSequence is a unison intervals
+
 
     for (var i = 0; i < soundSequenceLength; i++) {
       // get name of notes
@@ -108,17 +110,32 @@ var soundEngine = {
       if (harmony === 'ascending') {
         // remove eventlistener from buttons just before first note is played
         $('#sound-sequences').off();
+
+
         (function(i){
           window.setTimeout(function(){
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
               view.setupEventListeners(soundSequenceArray);
             }
+
             piano[startingNote + soundSequence[i]].play();
           }, i * timeInterval);
         }(i));
       }
     }
+
+    // Handle unison interval case for ascending and descending
+        // if (harmony === 'descending' || harmony === 'ascending' && soundSequence[0] === soundSequence[1]) {
+        //   (function(){
+        //     window.setTimeout(function(){
+        //       // When last note in soundSequence is reached, re-add eventlistener to buttons
+        //
+        //       piano[startingNote + soundSequenceReversed[i]].play();
+        //     }, 2 * timeInterval);
+        //   }());
+        // }
+
     if (harmony === "descending") {
       // Make a copy of the soundSequence array and reverse it
       var soundSequenceReversed = soundSequence.slice().reverse();
@@ -137,13 +154,12 @@ var soundEngine = {
         }(i));
       }
     }
-    console.log(noteNameString);
-    //console.log(Tonal.scale.detect(noteNameString));
   }
 }
 
 var utils = {
   createRandomStartingNote: function(soundSequence) {
+
     var soundSequenceRange = soundSequence[soundSequence.length - 1];
     var maxRootNote = (piano.length - 1 ) - soundSequenceRange;
     return Math.floor(Math.random() * (maxRootNote  + 1));
@@ -167,6 +183,7 @@ var utils = {
     return noteString;
   },
   getchordInversionDegree: function(soundSequence, inversion) {
+
     var maximumInversions = soundSequence.length - inversion;
     // If no inversion requested, return original soundSequence
     if (inversion === 0) {
@@ -196,6 +213,7 @@ var view = {
       var playSoundSequenceButton = this.createButton(value[0]);
       playSoundSequenceButton.id = position;
 
+      // Add classes to buttons if sopundSequence is a chord
       if (soundSequenceLength === 3) {
         playSoundSequenceButton.classList.add('3-note');
       } else if (soundSequenceLength === 4) {
@@ -219,7 +237,6 @@ var view = {
     $('#sound-sequences').off();
     // Set harmony to the value of the checked radiobutton
     var harmony = $('input[type=radio][name=harmony-select]:checked').attr('id');
-    // console.log(harmony);
     $('.harmony-btn').on('change', function() {
       harmony = this.id;
     });
@@ -278,7 +295,7 @@ var view = {
      }
 
    } else {
-     $('#harmonic').show();
+     //$('#harmonic').show();
      $('label[for="harmonic"]').show();
    }
    // Show and hide the radio buttons for inversions
@@ -287,24 +304,6 @@ var view = {
      $('#chord-inversion-selectors').show();
    }
 
-
-   $('.root-note').on('change', function() {
-     var rootNote = $('input[type=radio][name=root-note-select]:checked').attr('id');
-     if (rootNote === 'random-root-note') {
-       console.log('random');
-       startingNote = utils.createRandomStartingNote(soundSequence);
-     } else {
-       console.log('Fixed');
-     }
-   });
-
-
-
-
-
-
-
-
     var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
     $('#time-interval-between-notes').on('change', function() {
       timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
@@ -312,17 +311,24 @@ var view = {
     $('#sound-sequences').on('click', function(event) {
       var elementClicked = event.target;
       var soundSequence = soundSequenceArray[elementClicked.id][1].slice();
+      var rootNote = $('#fixed-root-note').is(':checked') ? 1 : 0;
 
-      var startingNote = 24;
+      // Only use inversions when chords are selected
+      if (soundSequenceArray === chords) {
+        console.log('Chords are selected');
+        soundSequence = utils.getchordInversionDegree(soundSequence, chordInversionDegree);
+      }
 
-      //var randomStartingNote = utils.createRandomStartingNote(soundSequence);
 
+      if (rootNote) {
+        rootNote = 24;
+      } else {
+        rootNote = utils.createRandomStartingNote(soundSequence);
+      }
       if (elementClicked.classList.contains('play-chord-btn')) {
-          //soundEngine.playSoundSequence(soundSequenceArray, soundSequence, 24, harmony, timeIntervalBetweenNotes);
-        soundEngine.playSoundSequence(soundSequenceArray, utils.getchordInversionDegree(soundSequence, chordInversionDegree), startingNote, harmony, timeIntervalBetweenNotes);
+        soundEngine.playSoundSequence(soundSequenceArray, soundSequence, rootNote, harmony, timeIntervalBetweenNotes);
       }
     });
   }
 }
-
 view.showSoundSequenceButtons(chords);

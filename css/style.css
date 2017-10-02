@@ -2,35 +2,58 @@
 body {
   font-family: 'Open Sans', sans-serif; }
 
+body {
+  margin: 0;
+  background: #2B2F39; }
+
 #controls {
   display: flex;
-  align-items: center;
-  height: 30px;
-  margin-left: 20px; }
-  #controls button {
-    width: 100px;
-    margin-right: 20px; }
-  #controls form {
-    margin-left: 30px; }
-
-#sound-sequence-type-select {
-  margin-right: 40px; }
+  flex-wrap: wrap;
+  background: #191C20;
+  padding: 20px 0 10px 20px; }
+  #controls .settings-section {
+    display: flex;
+    margin-right: 20px;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 10px; }
+  #controls label {
+    border: 1px solid #131418;
+    background: #242830;
+    color: #8C93A5;
+    padding: 5px;
+    width: 100%;
+    min-width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: .8em;
+    cursor: pointer; }
+    #controls label:first-of-type {
+      border-radius: 6px 0 0 6px; }
+    #controls label:last-of-type {
+      border-radius: 0 6px 6px 0; }
+  #controls input[type="radio"] {
+    display: none; }
+  #controls input[type="radio"]:checked + label {
+    background: #2B2F39;
+    color: white; }
 
 #sound-sequences {
   display: flex;
   flex-wrap: wrap;
-  width: 100vw; }
+  width: 100vw;
+  background: #2B2F39; }
   #sound-sequences button {
     flex-grow: 1;
-    width: 100px;
     min-width: 200px;
     padding: 20px;
     margin: 15px;
     border-radius: 10px;
-    border: 3px solid #3a8eeb;
-    background: #519bed;
+    border: 3px solid #006767;
+    background: teal;
     color: white;
     font-size: 1em; }
     #sound-sequences button:hover {
-      background: #68a8ef;
+      background: #009a9a;
       cursor: pointer; }

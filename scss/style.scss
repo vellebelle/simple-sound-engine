@@ -1,26 +1,59 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-$button-color: #519bed;
-
+$menu-background: #191C20;
+$border-color: #131418;
+$button-color: teal;
+$background-color: #2B2F39;
+$button-text-color: #8C93A5;
 body {
   font-family: 'Open Sans', sans-serif;
 }
 
-#controls {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  margin-left: 20px;
-  button {
-    width: 100px;
-    margin-right: 20px;
-  }
-  form {
-    margin-left: 30px;
-  }
+body {
+  margin: 0;
+  background: $background-color;
 }
 
-#sound-sequence-type-select {
-  margin-right: 40px;
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  background: $menu-background;
+  padding: 20px 0 10px 20px;
+  //justify-content: space-between;
+  //flex: 1;
+  .settings-section {
+    display: flex;
+    margin-right: 20px;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  label {
+    border: 1px solid $border-color;
+    background: darken($background-color, 3%);
+    color: $button-text-color;
+    padding: 5px;
+    width: 100%;
+    min-width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: .8em;
+    cursor: pointer;
+    &:first-of-type {
+      border-radius: 6px 0 0 6px;
+    }
+    &:last-of-type {
+      border-radius: 0 6px 6px 0;
+    }
+  }
+  input[type="radio"] {
+    display:none;
+  }
+  input[type="radio"]:checked + label {
+   background: $background-color;
+   color: white;
+  }
 }
 
 
@@ -28,10 +61,11 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 100vw;
+  background: $background-color;
   //justify-content: space-between;;
     button {
       flex-grow: 1;
-      width: 100px;
+      //width: 100px;
       min-width: 200px;
       padding: 20px;
       margin: 15px;
