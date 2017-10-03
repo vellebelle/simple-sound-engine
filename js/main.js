@@ -295,7 +295,6 @@ var view = {
      }
 
    } else {
-     //$('#harmonic').show();
      $('label[for="harmonic"]').show();
    }
    // Show and hide the radio buttons for inversions
@@ -304,10 +303,29 @@ var view = {
      $('#chord-inversion-selectors').show();
    }
 
-    var timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
-    $('#time-interval-between-notes').on('change', function() {
-      timeIntervalBetweenNotes = $('#time-interval-between-notes').val();
-    });
+   // Setup time interval number stepper
+   var timeIntervalBetweenNotes = 500;
+   $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+
+   $('.minus').on('click', function() {
+
+     if (timeIntervalBetweenNotes  === 100) {
+       timeIntervalBetweenNotes = 100;
+     } else {
+       timeIntervalBetweenNotes = timeIntervalBetweenNotes - 100;
+     }
+     $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+   });
+
+    $('.plus').on('click', function() {
+      if (timeIntervalBetweenNotes === 1000) {
+        timeIntervalBetweenNotes = 1000;
+      } else {
+        timeIntervalBetweenNotes = timeIntervalBetweenNotes + 100;
+      }
+    $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+  });
+
     $('#sound-sequences').on('click', function(event) {
       var elementClicked = event.target;
       var soundSequence = soundSequenceArray[elementClicked.id][1].slice();
