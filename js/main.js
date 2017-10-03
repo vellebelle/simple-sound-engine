@@ -112,6 +112,10 @@ var soundEngine = {
         // remove eventlistener from buttons just before first note is played
         $('#sound-sequences').off();
 
+        // if sound sequence is a unison interval, play the same not with specified timeInterval between notes
+        if (soundSequence[0] === soundSequence[1]) {
+          console.log('ascending unison played');
+        }
 
         (function(i) {
           window.setTimeout(function() {
@@ -126,22 +130,17 @@ var soundEngine = {
       }
     }
 
-    // Handle unison interval case for ascending and descending
-    // if (harmony === 'descending' || harmony === 'ascending' && soundSequence[0] === soundSequence[1]) {
-    //   (function(){
-    //     window.setTimeout(function(){
-    //       // When last note in soundSequence is reached, re-add eventlistener to buttons
-    //
-    //       piano[startingNote + soundSequenceReversed[i]].play();
-    //     }, 2 * timeInterval);
-    //   }());
-    // }
-
     if (harmony === "descending") {
       // Make a copy of the soundSequence array and reverse it
       var soundSequenceReversed = soundSequence.slice().reverse();
       // remove eventlistener from buttons just before first note is played
       $('#sound-sequences').off();
+
+      // if sound sequence is a unison interval, play the same not with specified timeInterval between notes
+      if (soundSequence[0] === soundSequence[1]) {
+        console.log('descending unison played');
+      }
+
       for (var i = 0; i < soundSequenceLength; i++) {
 
         (function(i) {
@@ -352,4 +351,5 @@ var view = {
     });
   }
 }
+
 view.showSoundSequenceButtons(chords);
