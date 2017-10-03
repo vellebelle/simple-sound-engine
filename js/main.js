@@ -113,8 +113,8 @@ var soundEngine = {
         $('#sound-sequences').off();
 
 
-        (function(i){
-          window.setTimeout(function(){
+        (function(i) {
+          window.setTimeout(function() {
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
               view.setupEventListeners(soundSequenceArray);
@@ -127,15 +127,15 @@ var soundEngine = {
     }
 
     // Handle unison interval case for ascending and descending
-        // if (harmony === 'descending' || harmony === 'ascending' && soundSequence[0] === soundSequence[1]) {
-        //   (function(){
-        //     window.setTimeout(function(){
-        //       // When last note in soundSequence is reached, re-add eventlistener to buttons
-        //
-        //       piano[startingNote + soundSequenceReversed[i]].play();
-        //     }, 2 * timeInterval);
-        //   }());
-        // }
+    // if (harmony === 'descending' || harmony === 'ascending' && soundSequence[0] === soundSequence[1]) {
+    //   (function(){
+    //     window.setTimeout(function(){
+    //       // When last note in soundSequence is reached, re-add eventlistener to buttons
+    //
+    //       piano[startingNote + soundSequenceReversed[i]].play();
+    //     }, 2 * timeInterval);
+    //   }());
+    // }
 
     if (harmony === "descending") {
       // Make a copy of the soundSequence array and reverse it
@@ -144,8 +144,8 @@ var soundEngine = {
       $('#sound-sequences').off();
       for (var i = 0; i < soundSequenceLength; i++) {
 
-        (function(i){
-          window.setTimeout(function(){
+        (function(i) {
+          window.setTimeout(function() {
             // When last note in soundSequence is reached, re-add eventlistener to buttons
             if (i === soundSequenceLength - 1) {
               view.setupEventListeners(soundSequenceArray);
@@ -162,11 +162,11 @@ var utils = {
   createRandomStartingNote: function(soundSequence) {
 
     var soundSequenceRange = soundSequence[soundSequence.length - 1];
-    var maxRootNote = (piano.length - 1 ) - soundSequenceRange;
-    return Math.floor(Math.random() * (maxRootNote  + 1));
+    var maxRootNote = (piano.length - 1) - soundSequenceRange;
+    return Math.floor(Math.random() * (maxRootNote + 1));
   },
   generateNoteString: function(noteIndex, sharpOrFlat) {
-  //sharpOrFlat         : false=sharps, true=flats
+    //sharpOrFlat         : false=sharps, true=flats
     noteIndex = ((noteIndex % 12) + 12) % 12;
     var noteString;
 
@@ -191,7 +191,7 @@ var utils = {
       return soundSequence;
     }
     // If inversion does not exceed soundSequence limit, return new inversion
-    if (inversion > 0 && maximumInversions >= 1){
+    if (inversion > 0 && maximumInversions >= 1) {
       for (var i = 0; i < inversion; i++) {
         var rootNotePlusOctave = soundSequence[0] + 12;
         soundSequence.push(rootNotePlusOctave);
@@ -283,42 +283,42 @@ var view = {
     });
     // Hide the harmonic option if soundSequenceArray is equal to scales
     if (soundSequenceArray === scales) {
-     $('#harmonic').hide();
-     $('label[for="harmonic"]').hide();
-     // Set harmony radiobutton to ascending or descending (no harmonic option)
-     if (harmony === 'ascending') {
-       $('#ascending').prop('checked', true);
-     } else if (harmony === 'descending') {
-       $('#descending').prop('checked', true);
-     } else {
-       harmony = 'ascending';
-       $('#ascending').prop('checked', true);
-     }
+      $('#harmonic').hide();
+      $('label[for="harmonic"]').hide();
+      // Set harmony radiobutton to ascending or descending (no harmonic option)
+      if (harmony === 'ascending') {
+        $('#ascending').prop('checked', true);
+      } else if (harmony === 'descending') {
+        $('#descending').prop('checked', true);
+      } else {
+        harmony = 'ascending';
+        $('#ascending').prop('checked', true);
+      }
 
-   } else {
-     $('label[for="harmonic"]').show();
-   }
-   // Show and hide the radio buttons for inversions
-   $('#chord-inversion-selectors').hide();
-   if (soundSequenceArray === chords) {
-     $('#chord-inversion-selectors').show();
-   }
+    } else {
+      $('label[for="harmonic"]').show();
+    }
+    // Show and hide the radio buttons for inversions
+    $('#chord-inversion-selectors').hide();
+    if (soundSequenceArray === chords) {
+      $('#chord-inversion-selectors').show();
+    }
 
-   // Setup time interval number stepper
+    // Setup time interval number stepper
 
-   $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
-   // Remove eventlisteners from plus and minus buttons
-   $('.minus, .plus').off();
+    $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+    // Remove eventlisteners from plus and minus buttons
+    $('.minus, .plus').off();
 
-   $('.minus').on('click', function() {
+    $('.minus').on('click', function() {
 
-     if (timeIntervalBetweenNotes  === 100) {
-       timeIntervalBetweenNotes = 100;
-     } else {
-       timeIntervalBetweenNotes = timeIntervalBetweenNotes - 100;
-     }
-     $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
-   });
+      if (timeIntervalBetweenNotes === 100) {
+        timeIntervalBetweenNotes = 100;
+      } else {
+        timeIntervalBetweenNotes = timeIntervalBetweenNotes - 100;
+      }
+      $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+    });
 
     $('.plus').on('click', function() {
       if (timeIntervalBetweenNotes === 1000) {
@@ -326,8 +326,8 @@ var view = {
       } else {
         timeIntervalBetweenNotes = timeIntervalBetweenNotes + 100;
       }
-    $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
-  });
+      $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+    });
 
     $('#sound-sequences').on('click', function(event) {
       var elementClicked = event.target;
