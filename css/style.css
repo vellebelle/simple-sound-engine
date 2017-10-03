@@ -28,6 +28,9 @@ body {
     color: #8C93A5;
     background: #242830;
     cursor: pointer; }
+    #controls .stepper .button:hover {
+      background: #2B2F39;
+      color: white; }
   #controls .stepper .left {
     border-radius: 6px 0 0 6px; }
   #controls .stepper .right {
@@ -57,7 +60,8 @@ body {
     #controls label:last-of-type {
       border-radius: 0 6px 6px 0; }
     #controls label:hover {
-      background: #2B2F39; }
+      background: #2B2F39;
+      color: white; }
   #controls input[type="radio"] {
     display: none; }
   #controls input[type="radio"]:checked + label {
