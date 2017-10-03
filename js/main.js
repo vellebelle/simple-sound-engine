@@ -91,6 +91,7 @@ for (var i = 0; i < 60; i++) {
   var url = 'sounds/Piano' + i + '.mp3';
   piano[i] = new Audio(url);
 }
+var timeIntervalBetweenNotes = 500;
 
 var soundEngine = {
   playSoundSequence: function(soundSequenceArray, soundSequence, startingNote, harmony, timeInterval) {
@@ -304,8 +305,10 @@ var view = {
    }
 
    // Setup time interval number stepper
-   var timeIntervalBetweenNotes = 500;
+
    $('.miliseconds').text(timeIntervalBetweenNotes + ' m/s');
+   // Remove eventlisteners from plus and minus buttons
+   $('.minus, .plus').off();
 
    $('.minus').on('click', function() {
 
