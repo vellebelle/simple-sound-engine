@@ -313,7 +313,7 @@ var view = {
       var soundSequence = soundSequenceArray[elementClicked.id][1].slice();
       var rootNote = $('#fixed-root-note').is(':checked') ? 1 : 0;
 
-      // Only use inversions when chords are selected
+      // Only get inversion if the soundSequence is a chord
       if (soundSequenceArray === chords) {
         console.log('Chords are selected');
         soundSequence = utils.getchordInversionDegree(soundSequence, chordInversionDegree);

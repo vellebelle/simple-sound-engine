@@ -27,6 +27,41 @@ body {
     flex: 1;
     margin-bottom: 10px;
   }
+// Stepper plus minus buttons
+  .stepper {
+    //display: flex;
+
+    .button {
+      width: 20px;
+      height: 20px;
+      padding: 10px;
+      border: 1px solid $border-color;
+      text-align: center;
+      font-size: 1.5em;
+      line-height: 20px;
+      color: $button-text-color;
+      background: darken($background-color, 3%);
+      //border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .left {
+      border-radius: 6px 0 0 6px;
+    }
+    .right {
+      border-radius: 0 6px 6px 0;
+    }
+
+    .miliseconds {
+      width: 80px;
+      height: 40px;
+      background: white;
+      border: 1px solid black;
+      text-align: center;
+      line-height: 40px;
+      font-size: 14px;
+    }
+  }
 
   label {
     border: 1px solid $border-color;

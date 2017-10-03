@@ -17,6 +17,29 @@ body {
     flex-direction: row;
     flex: 1;
     margin-bottom: 10px; }
+  #controls .stepper .button {
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid #131418;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 20px;
+    color: #8C93A5;
+    background: #242830;
+    cursor: pointer; }
+  #controls .stepper .left {
+    border-radius: 6px 0 0 6px; }
+  #controls .stepper .right {
+    border-radius: 0 6px 6px 0; }
+  #controls .stepper .miliseconds {
+    width: 80px;
+    height: 40px;
+    background: white;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px; }
   #controls label {
     border: 1px solid #131418;
     background: #242830;
