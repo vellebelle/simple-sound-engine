@@ -44,13 +44,14 @@ body {
       //border-radius: 6px;
       cursor: pointer;
     }
-
+    
     .left {
       border-radius: 6px 0 0 6px;
     }
     .right {
       border-radius: 0 6px 6px 0;
     }
+
 
     .miliseconds {
       width: 80px;
@@ -80,6 +81,9 @@ body {
     }
     &:last-of-type {
       border-radius: 0 6px 6px 0;
+    }
+    &:hover {
+      background: $background-color;
     }
   }
   input[type="radio"] {
