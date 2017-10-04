@@ -345,4 +345,5 @@ var view = {
 }
 
 // preloader
-window.addEventListener('load', view.showSoundSequenceButtons(chords));
+// window.addEventListener('load', view.showSoundSequenceButtons(chords));
+view.showSoundSequenceButtons(chords);
