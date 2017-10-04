@@ -103,6 +103,7 @@ var soundEngine = {
       for (var i=0; i < 2; i++) {
         (function(i) {
           window.setTimeout(function() {
+            // reset the notes so they can be played again before the previous is over
             piano[startingNote].currentTime = 0;
             piano[startingNote].play();
           }, i * timeInterval);
@@ -128,7 +129,8 @@ var soundEngine = {
             if (i === soundSequenceLength - 1) {
               view.setupEventListeners(soundSequenceArray);
             }
-
+            // reset the notes so they can be played again before the previous is over
+            piano[startingNote + soundSequence[i]].currentTime = 0;
             piano[startingNote + soundSequence[i]].play();
           }, i * timeInterval);
         }(i));
@@ -149,6 +151,8 @@ var soundEngine = {
             if (i === soundSequenceLength - 1) {
               view.setupEventListeners(soundSequenceArray);
             }
+            // reset the notes so they can be played again before the previous is over
+            piano[startingNote + soundSequenceReversed[i]].currentTime = 0;
             piano[startingNote + soundSequenceReversed[i]].play();
           }, i * timeInterval);
         }(i));
