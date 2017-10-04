@@ -197,6 +197,7 @@ var utils = {
 
 var view = {
   showSoundSequenceButtons: function(soundSequenceArray) {
+    $('#preloader').css('display', 'none');
     $('#sound-sequences').empty();
     var soundSequenceDiv = document.getElementById('sound-sequences');
     soundSequenceArray.forEach(function(value, position) {
@@ -344,7 +345,4 @@ var view = {
 }
 
 // preloader
-window.addEventListener('load', function() {
-  $('#preloader').css('display', 'none');
-  view.showSoundSequenceButtons(chords);
-}, false);
+window.addEventListener('load', view.showSoundSequenceButtons(chords));
