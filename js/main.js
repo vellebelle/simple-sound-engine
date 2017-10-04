@@ -356,4 +356,8 @@ var view = {
   }
 }
 
+window.addEventListener('load', function() {
+  $('#preloader').css('display', 'none');
+});
+
 view.showSoundSequenceButtons(chords);

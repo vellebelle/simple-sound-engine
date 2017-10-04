@@ -6,6 +6,12 @@ body {
   margin: 0;
   background: #2B2F39; }
 
+#preloader {
+  position: fixed;
+  z-index: 9999;
+  left: 48%;
+  top: 40%; }
+
 #controls {
   display: flex;
   flex-wrap: wrap;

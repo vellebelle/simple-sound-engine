@@ -25,6 +25,14 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"\/images\/spinner.gif": {
+		"ft": 4194304,
+		"iS": 5287,
+		"oA": 0,
+		"oAP": "\/images\/spinner.gif",
+		"oF": 0,
+		"opt": 0
+		},
 	"\/index.html": {
 		"ft": 8192,
 		"oA": 2,

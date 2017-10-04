@@ -12,6 +12,19 @@ body {
 body {
   margin: 0;
   background: $background-color;
+
+}
+
+#preloader {
+  position: fixed;
+  z-index: 9999;
+  left: 48%;
+  top: 40%;
+
+  img {
+    //  width: 50px;
+    //  height: 50px;
+  }
 }
 
 #controls {
