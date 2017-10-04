@@ -85,6 +85,11 @@ const notesFlat = ["C", "D", "D", "E", "E", "F", "G", "G", "A", "A", "B", "B"];
 // constant where each value corresponds to the sharp or flat in the note sequences.. 0 = no sharp/flat, 1 = sharp/flat
 const signs = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
 
+// preloader
+window.addEventListener('load', function() {
+  $('#preloader').css('display', 'none');
+});
+
 // Load sound files and put them into piano array
 var piano = [];
 for (var i = 0; i < 60; i++) {
@@ -97,19 +102,6 @@ var soundEngine = {
   playSoundSequence: function(soundSequenceArray, soundSequence, startingNote, harmony, timeInterval) {
     var soundSequenceLength = soundSequence.length;
     var noteNameString = '';
-
-    // Check if soundSequence is a unison interval and play the same note twice with time interval between
-    if (soundSequence[0] === soundSequence[1] && harmony !== 'harmonic') {
-      for (var i=0; i < 2; i++) {
-        (function(i) {
-          window.setTimeout(function() {
-            // reset the notes so they can be played again before the previous is over
-            piano[startingNote].currentTime = 0;
-            piano[startingNote].play();
-          }, i * timeInterval);
-        }(i));
-      }
-    }
 
     for (var i = 0; i < soundSequenceLength; i++) {
       // get name of notes
@@ -356,8 +348,5 @@ var view = {
   }
 }
 
-window.addEventListener('load', function() {
-  $('#preloader').css('display', 'none');
-});
 
 view.showSoundSequenceButtons(chords);
