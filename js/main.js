@@ -85,11 +85,6 @@ const notesFlat = ["C", "D", "D", "E", "E", "F", "G", "G", "A", "A", "B", "B"];
 // constant where each value corresponds to the sharp or flat in the note sequences.. 0 = no sharp/flat, 1 = sharp/flat
 const signs = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
 
-// preloader
-window.addEventListener('load', function() {
-  $('#preloader').css('display', 'none');
-});
-
 // Load sound files and put them into piano array
 var piano = [];
 for (var i = 0; i < 60; i++) {
@@ -348,5 +343,8 @@ var view = {
   }
 }
 
-
-view.showSoundSequenceButtons(chords);
+// preloader
+window.addEventListener('load', function() {
+  $('#preloader').css('display', 'none');
+  view.showSoundSequenceButtons(chords);
+}, false);
