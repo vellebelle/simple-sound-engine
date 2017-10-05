@@ -198,7 +198,6 @@ var utils = {
 
 var view = {
   showSoundSequenceButtons: function(soundSequenceArray) {
-  //  $('#preloader').css('display', 'none');
     $('#sound-sequences').empty();
     var soundSequenceDiv = document.getElementById('sound-sequences');
     soundSequenceArray.forEach(function(value, position) {
@@ -344,6 +343,12 @@ var view = {
   }
 }
 
-// preloader
- window.addEventListener('load', view.showSoundSequenceButtons(chords));
+// preloader NOTE: without load listener the app doesn't load on Android
+ window.addEventListener('load', function() {
+   view.showSoundSequenceButtons(chords);
+   $('#preloader').css('display', 'none');
+ });
+
+
+
 //view.showSoundSequenceButtons(chords)
