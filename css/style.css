@@ -4,7 +4,8 @@ body {
 
 body {
   margin: 0;
-  background: #2B2F39; }
+  background: #2B2F39;
+  width: vw; }
 
 #preloader {
   position: fixed;
@@ -21,7 +22,6 @@ body {
     display: flex;
     margin-right: 20px;
     flex-direction: row;
-    flex: 1;
     margin-bottom: 10px; }
   #controls .stepper .button {
     width: 20px;

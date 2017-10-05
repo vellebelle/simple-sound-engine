@@ -1,3 +1,4 @@
+
 const chords = [
   ['Major', [0, 4, 7]],
   ['Minor', [0, 3, 7]],
@@ -327,7 +328,6 @@ var view = {
 
       // Only get inversion if the soundSequence is a chord
       if (soundSequenceArray === chords) {
-        console.log('Chords are selected');
         soundSequence = utils.getchordInversionDegree(soundSequence, chordInversionDegree);
       }
 
@@ -345,5 +345,5 @@ var view = {
 }
 
 // preloader
-// window.addEventListener('load', view.showSoundSequenceButtons(chords));
-view.showSoundSequenceButtons(chords)<
+ window.addEventListener('load', view.showSoundSequenceButtons(chords));
+//view.showSoundSequenceButtons(chords)
